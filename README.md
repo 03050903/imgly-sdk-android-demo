@@ -70,7 +70,7 @@ editing tools. Export and integrate them in minutes!
 img.ly SDK for Android is a licensed library which can be used for different purposes. <br/>
 Please see:
 
- [LICENSE.PROPIETARY](https://github.com/imgly/imgly-sdk-android-demo/blob/master/LICENSE.PROPIETARY) for PROPIETARY usage.
+ [LICENSE.PROPIETARY](https://github.com/imgly/imgly-sdk-android/blob/master/LICENSE.PROPIETARY) for PROPIETARY usage.
 
 ### Author & Contact
 
@@ -84,50 +84,70 @@ Please see:
 > Require a minimum deployment target of Android API 15 (4.0.4) and Device with HardwareLayer (for LivePreview) and LargeHeap Support (To operate and export large images)
 
 
-##### 1. Import the img.ly SDK into your project with jcenter like this. 
+##### 1. Configure your Module build.gradle to import the img.ly SDK into your project with jCenter.
 
-```
+There are few things we'll need to add here.
+See comments in the example code below. 
+
+__DO NOT FORGET TO ADD RENDERSCRIPT SUPPORT!__
+
+```groovy
 apply plugin: 'com.android.application'
-...
-
-repositories {
-    ...
-    jcenter()
-}
 
 android {
+    /* Set the Compile SDK and the Build SDK min. at SDK 23 or grater. */
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
-    minSdkVersion 15
-    ...
+    buildToolsVersion '23.0.2'
+
+    /* If you update from SDK 22 and below, the ApacheHttp-Library are removed by Google,
+     * if you need the ApacheHttp-Library comment out the next this line */
+    // useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        ...
+        /* Replace with your App-ID @see http://tools.android.com/tech-docs/new-build-system/applicationid-vs-packagename */
+        applicationId "my.domain.application"
+
+        /* Set the minimum supported SDK Version to 15 (Android 4.0.3) or higher */
+        minSdkVersion 15
+
+        /* Set the target SDK Version at minimum to 23 or higher */
+        targetSdkVersion 23
+
+        /* Set your own Version Code and Version name */
+        versionCode 1
+        versionName "1.0"
+
+        /* Don't forget this two lines, apart from that the app will crash! */
         renderscriptTargetApi 20
         renderscriptSupportModeEnabled true
     }
+
+    /* Set Java Language level minimal to Java 1.7 or greater */
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
     ...
 }
-
 
 dependencies {
-
-    compile 'ly.img.android:photo-editor-sdk:1.0.7'
-    ...
+    /* Make sure you are import the latest SDK version */
+    compile 'ly.img.android:photo-editor-sdk:1.0.8'
 }
+
+...
+
 ```
 
-__Do not forget to add "renderscriptSupportModeEnabled true" and "renderscriptTargetApi 20"!__<BR/>
-__And please use the latest jCenter Version__
+Be also sure to sync your project with the Gradle files after making any edits.
 
-<a href="https://bintray.com/9elements/ly.img.android/photo-editor-sdk/_latestVersion">
-    <img src="https://api.bintray.com/packages/9elements/ly.img.android/photo-editor-sdk/images/download.svg" alt="JCenter">
-</a>
+For more information about gradle look at http://developer.android.com/tools/building/configuring-gradle.html
 
 ##### 2. Initialize SDK in an Application class.
 
 ```xml
-<?xml version="1.0" encodinAg="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mymodule.app" >
 
@@ -154,6 +174,8 @@ public class Application extends android.app.Application {
 ```
 
 ##### 3.1. Start img.ly SDK default UI.
+
+This is what your Activity should look like. Follow the steps below to understand the individual workflow:
 
 ```java
 public class MainActivity extends Activity implements PermissionRequest.Response{
@@ -277,3 +299,7 @@ public class Application extends android.app.Application {
     }
 }
 ```
+
+## Troubleshooting
+
+Some AndroidStudio decides to import `PermissionRequest.Response` from `android.webkit.PermissionRequest`. Make sure you import `ly.img.android.ui.utilities.PermissionRequest`.
