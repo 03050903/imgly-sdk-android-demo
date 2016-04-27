@@ -21,22 +21,6 @@
 
     <style name="Imgly.Button" parent="Imgly"/>
 
-    <!-- Picker -->
-    <style name="Imgly.Picker" parent="Imgly"/>
-    <!-- Color Picker -->
-
-    <style name="Imgly.Picker.Color" parent="Imgly.Picker"/>
-
-    <style name="Imgly.Picker.Color.EditText" parent="Imgly">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">4dp</item>
-        <item name="android:imeOptions">actionNext</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:textColor">@color/imgly_textedit_text_color</item>
-    </style>
-
     <!-- Editor -->
     <style name="Imgly.Editor" parent="Imgly"/>
 
@@ -81,7 +65,6 @@
         <item name="android:drawableRight">@drawable/imgly_icon_cancel</item>
     </style>
     <style name="Imgly.Editor.Header.Button.SaveButton"   parent="Imgly.Editor.Header.Button"/>
-
     <style name="Imgly.Editor.Header.Button.AcceptButton" parent="Imgly.Editor.Header.Button">
         <item name="android:drawableRight">@drawable/imgly_icon_confirm</item>
     </style>
@@ -154,7 +137,7 @@
     <style name="Imgly.SeekBarContainer" parent="Imgly.Editor.Toolbar.Panels">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>
-        <item name="android:background">@color/imgly_editor_overlay_panel_background</item>
+        <item name="android:background">#B3000000</item>
     </style>
 
     <style name="Imgly.Editor.Toolbar.Panels.Divider" parent="Imgly.Editor.Toolbar.Panels">
@@ -163,7 +146,7 @@
         <item name="android:background">#13FFFFFF</item>
         <item name="android:layout_marginLeft">14dp</item>
         <item name="android:layout_marginRight">14dp</item>
-        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="Imgly.Editor.Toolbar.Panels.Tool" parent="Imgly.Editor.Toolbar.Panels"/>
